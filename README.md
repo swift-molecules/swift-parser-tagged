@@ -1,5 +1,7 @@
-Integration of the Parser domain with the Tagged domain.
+# swift-tagged-parser
 
-`Parser Tagged` makes a tagged value `Parseable` whenever its underlying value
+Focused Parser integration for the Tagged domain.
+
+`Tagged Parser` makes a tagged value `Parseable` whenever its underlying value
 is parseable as itself. The adapter preserves the underlying parser's input and
 failure types while wrapping successful output in the requested tag.

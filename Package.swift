@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "swift-parser-tagged",
+    name: "swift-tagged-parser",
     platforms: [
         .macOS(.v27),
         .iOS(.v27),
@@ -13,8 +13,8 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "Parser Tagged",
-            targets: ["Parser Tagged"]
+            name: "Tagged Parser",
+            targets: ["Tagged Parser"]
         ),
     ],
     dependencies: [
@@ -29,20 +29,20 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "Parser Tagged",
+            name: "Tagged Parser",
             dependencies: [
                 .product(name: "Parser", package: "swift-parser"),
                 .product(name: "Tagged", package: "swift-tagged"),
             ]
         ),
         .testTarget(
-            name: "Parser Tagged Tests",
+            name: "Tagged Parser Tests",
             dependencies: [
-                "Parser Tagged",
+                .target(name: "Tagged Parser"),
                 .product(name: "Parser", package: "swift-parser"),
                 .product(name: "Tagged", package: "swift-tagged"),
             ],
-            path: "Tests/Parser Tagged Tests"
+            path: "Tests/Tagged Parser Tests"
         ),
     ],
     swiftLanguageModes: [.v6]

@@ -1,16 +1,16 @@
 import Parser
-import Parser_Tagged
+import Tagged_Parser
 import Tagged
 import Testing
 
 @Suite
-struct `Parser Tagged` {
+struct `Tagged Parser` {
 
     @Test
     func `parseable lifts its parser through the tag`() throws(any Swift.Error) {
         var input: Substring = "abc"
 
-        let value = try Tagged<Field, Token>.parser.parse(&input)
+        let value = try Tagged::Tagged<Field, Token>.parser.parse(&input)
 
         #expect(value.underlying == Token(character: "a"))
         #expect(input == "bc")
@@ -31,7 +31,7 @@ private enum TokenError: Error {
     case empty
 }
 
-private struct TokenParser: Parser.`Protocol` {
+private struct TokenParser: Parser::Parser.`Protocol` {
     typealias Input = Substring
     typealias Output = Token
     typealias Failure = TokenError

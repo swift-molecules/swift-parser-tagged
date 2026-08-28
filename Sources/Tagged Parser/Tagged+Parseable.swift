@@ -1,7 +1,7 @@
 public import Parser
 public import Tagged
 
-extension Tagged where Underlying: Parseable, Underlying.Parser.Output == Underlying {
+extension Tagged::Tagged where Underlying: Parseable, Underlying.Parser.Output == Underlying {
 
     public struct UnderlyingParser {
 
@@ -10,7 +10,7 @@ extension Tagged where Underlying: Parseable, Underlying.Parser.Output == Underl
     }
 }
 
-extension Tagged.UnderlyingParser: Parser.`Protocol`
+extension Tagged::Tagged.UnderlyingParser: Parser::Parser.`Protocol`
 where
     Underlying: Parseable,
     Underlying.Parser.Output == Underlying
@@ -18,7 +18,7 @@ where
 
     public typealias Input = Underlying.Parser.Input
 
-    public typealias Output = Tagged<Tag, Underlying>
+    public typealias Output = Tagged::Tagged<Tag, Underlying>
 
     public typealias Failure = Underlying.Parser.Failure
 
@@ -27,20 +27,20 @@ where
     @inlinable
     public borrowing func parse(
         _ input: inout Underlying.Parser.Input
-    ) throws(Underlying.Parser.Failure) -> Tagged<Tag, Underlying> {
+    ) throws(Underlying.Parser.Failure) -> Tagged::Tagged<Tag, Underlying> {
         let underlying = try Underlying.parser.parse(&input)
-        return Tagged<Tag, Underlying>(_unchecked: underlying)
+        return Tagged::Tagged<Tag, Underlying>(_unchecked: underlying)
     }
 }
 
-extension Tagged: @retroactive Parseable
+extension Tagged::Tagged: @retroactive Parseable
 where
     Underlying: Parseable,
     Underlying.Parser.Output == Underlying
 {
 
     @inlinable
-    public static var parser: Tagged<Tag, Underlying>.UnderlyingParser {
-        Tagged<Tag, Underlying>.UnderlyingParser()
+    public static var parser: Tagged::Tagged<Tag, Underlying>.UnderlyingParser {
+        Tagged::Tagged<Tag, Underlying>.UnderlyingParser()
     }
 }
