@@ -19,7 +19,7 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-molecules/swift-parser.git",
+            url: "https://github.com/swift-atoms/swift-parser.git",
             branch: "main"
         ),
         .package(
@@ -37,7 +37,11 @@ let package = Package(
         ),
         .testTarget(
             name: "Parser Tagged Tests",
-            dependencies: ["Parser Tagged"],
+            dependencies: [
+                "Parser Tagged",
+                .product(name: "Parser", package: "swift-parser"),
+                .product(name: "Tagged", package: "swift-tagged"),
+            ],
             path: "Tests/Parser Tagged Tests"
         ),
     ],

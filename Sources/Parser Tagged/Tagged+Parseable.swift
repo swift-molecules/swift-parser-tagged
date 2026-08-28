@@ -33,7 +33,7 @@ where
     }
 }
 
-extension Tagged: Parseable
+extension Tagged: @retroactive Parseable
 where
     Underlying: Parseable,
     Underlying.Parser.Output == Underlying
