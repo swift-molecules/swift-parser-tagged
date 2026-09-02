@@ -35,7 +35,6 @@ private struct TokenParser: Parser::Parser.`Protocol` {
     typealias Input = Substring
     typealias Output = Token
     typealias Failure = TokenError
-    typealias Body = Never
 
     func parse(_ input: inout Substring) throws(TokenError) -> Token {
         guard let character = input.first else { throw .empty }
