@@ -27,7 +27,7 @@ private struct Token: Equatable, Parseable {
     }
 }
 
-private enum TokenError: Error {
+private enum TokenError: Error, Equatable {
     case empty
 }
 
@@ -42,3 +42,20 @@ private struct TokenParser: Parser::Parser.`Protocol` {
         return Token(character: character)
     }
 }
+
+extension `Tagged Parser` {
+
+    @Test
+    func `the tag surfaces the underlying parser's failure unchanged`() {
+        var input: Substring = ""
+        #expect(throws: TokenError.empty) {
+            try Tagged::Tagged<Field, Token>.parser.parse(&input)
+        }
+        requireFailure(Tagged::Tagged<Field, Token>.parser, TokenError.self)
+    }
+}
+
+private func requireFailure<P: Parser::Parser.`Protocol`, Failure: Swift.Error>(
+    _: borrowing P,
+    _: Failure.Type
+) where P.Input: ~Copyable & ~Escapable, P.Output: ~Copyable & ~Escapable, P.Failure == Failure {}
